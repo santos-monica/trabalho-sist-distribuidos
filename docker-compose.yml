@@ -1,0 +1,35 @@
+version: '3'
+networks:
+  prod-network:
+    driver: bridge
+
+services:
+  mongodb:
+    image: mongo
+    networks:
+      - prod-network
+  front:
+    build:
+      dockerfile: ./client/Dockerfile
+      context: .
+    image: monica/react
+    container_name: frontend
+    ports: 
+      - "3000:3000"
+    networks:
+      - prod-network
+    depends_on:
+      - "mongodb"
+      - "back"
+  back:
+    build:
+      dockerfile: ./server/Dockerfile
+      context: .
+    image: monica/graphql
+    container_name: backend
+    ports:
+      - "4000:4000"
+    networks:
+      - prod-network
+    depends_on:
+      - "mongodb"

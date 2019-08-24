@@ -7,7 +7,7 @@ const cors = require('cors');
 const app = express();
 app.use(cors());
 
-mongoose.connect('mongodb://localhost:27017/gql-teste', {useNewUrlParser: true});
+mongoose.connect('mongodb://mongodb:27017/gql-teste', {useNewUrlParser: true});
 mongoose.connection.once('open', () => {
     console.log('Connected to the database'); 
 })
